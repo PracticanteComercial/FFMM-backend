@@ -1,16 +1,19 @@
 {
-  "name": "ffmm-backend",
+  "name": "FFMM-backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "type": "module",
+  "repository": "https://github.com/PracticanteComercial/FFMM-backend.git",
+  "author": "PracticanteComercial <practicantecomercial@vectorcapital.cl>",
+  "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "xlsx": "^0.18.5"
+    "koa": "^2.15.0",
+    "koa-body": "^6.0.1",
+    "koa-logger": "^3.2.1",
+    "nodemon": "^3.0.2"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   }
 }
