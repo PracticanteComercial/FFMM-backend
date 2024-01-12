@@ -5,7 +5,8 @@ npm init -y
 
 
 ## Correr la aplicación
- yarn start
+yarn install
+yarn start
 
 
 ## Links de recursos

@@ -1,7 +1,7 @@
 
 import koa from "koa";
 import KoaLogger from "koa-logger";
-import koaBody from "koa-body";
+import { koaBody } from "koa-body";
 import router from "./routes.js";
 
 const app = new koa();
@@ -9,12 +9,14 @@ const app = new koa();
 app.use(KoaLogger());
 app.use(koaBody());
 
-app.use(router.routes());
 
+app.use(router.routes());
 
 app.use((ctx, next) => {
     ctx.body = "Backend of FFMM";
 })
+
+
 
 app.listen(3000, () => {
     console.log("Running. Listening at port 3000.");
