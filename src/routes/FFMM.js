@@ -1,4 +1,4 @@
-import Router from "koa-router";
+const Router = require("koa-router");
 
 const router = new Router();
 
@@ -12,4 +12,4 @@ router.get("FFMM.show","/FFMM", async (ctx) => {
 } );
 
 
-export default router;
+module.exports = router;

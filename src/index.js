@@ -1,26 +1,17 @@
-
-import koa from "koa";
-import KoaLogger from "koa-logger";
-import { koaBody } from "koa-body";
-import router from "./routes.js";
-
-const app = new koa();
-
-app.use(KoaLogger());
-app.use(koaBody());
+const app = require("./app.js");
+const db = require("./models");
+const dotenv = require("dotenv");
 
 
-app.use(router.routes());
+dotenv.config();
 
-app.use((ctx, next) => {
-    ctx.body = "Backend of FFMM";
-})
+const PORT = process.env.PORT || 3001;
 
-
-
-app.listen(3000, () => {
-    console.log("Running. Listening at port 3000.");
-})
-
-
-
+db.sequelize.authenticate().then(() => {
+    console.log("Database connected");
+    app.listen(PORT, (err) => {
+        if (err) console.log("Failed in listening", err);
+        console.log(`Server is running at http://localhost:${PORT}`);
+        return app;
+    }   );
+}).catch((err)=>{console.log("Error connecting to database", err);}   );

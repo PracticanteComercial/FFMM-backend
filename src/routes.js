@@ -1,8 +1,7 @@
-import Router from "koa-router";
-import FFMM from "./routes/FFMM.js";
-
+const Router = require("koa-router");
+const FFMM = require("./routes/FFMM.js");
 
 const router = new Router();
 router.use(FFMM.routes());
 
-export default router;
+module.exports = router;
