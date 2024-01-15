@@ -8,5 +8,11 @@ npm init -y
 yarn install
 yarn start
 
+## Para iniciar la base de datos 
+sudo service postgresql start
+
+## Correr migraciones y seed
+yarn sequelize-cli db:migrate
+yarn sequelize-cli db:seed:all
 
 ## Links de recursos
