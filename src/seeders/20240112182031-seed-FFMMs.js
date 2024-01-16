@@ -12,7 +12,7 @@ module.exports = {
         ytd: "2.3%",
         yearly: "70.3%",
         rescueability: "menor de 5 días",
-        rickLevel: "Bajo",
+        riskLevel: "Bajo",
         bylawLink: "https://www.google.com",
         dataSheetLink: "https://www.google.com",
         invertLink: "https://www.google.com",

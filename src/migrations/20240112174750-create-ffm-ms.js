@@ -39,7 +39,7 @@ module.exports = {
       rescueability: {
         type: Sequelize.STRING
       },
-      rickLevel: {
+      riskLevel: {
         type: Sequelize.STRING
       },
       bylawLink: {

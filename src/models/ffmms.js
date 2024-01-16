@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     ytd: DataTypes.STRING,
     yearly: DataTypes.STRING,
     rescueability: DataTypes.STRING,
-    rickLevel: DataTypes.STRING,
+    riskLevel: DataTypes.STRING,
     bylawLink: DataTypes.STRING,
     dataSheetLink: DataTypes.STRING,
     invertLink: DataTypes.STRING

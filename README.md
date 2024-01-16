@@ -10,6 +10,7 @@ yarn start
 
 ## Para iniciar la base de datos 
 sudo service postgresql start
+sudo -u postgres psql
 
 ## Correr migraciones y seed
 yarn sequelize-cli db:migrate
