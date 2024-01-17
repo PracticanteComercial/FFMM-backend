@@ -28,6 +28,7 @@ router.post("FFMM.create", "/FFMMs", async (ctx) => {
     }
 });
 
+// POST a lot of FFMMs (upload excel file)
 router.post("/FFMMs/upload", koaBody({ multipart: true }), async (ctx) => {
     try {
         const file = ctx.request.files.file;
@@ -39,12 +40,12 @@ router.post("/FFMMs/upload", koaBody({ multipart: true }), async (ctx) => {
 
         const FFMMsData = [];
 
-        for (let i = 1; i < xlData.length; i++) { // Comenzamos desde la segunda fila
+        for (let i = 1; i < xlData.length; i++) { 
             const rowData = xlData[i];
-            const runValue = rowData['RUN']; // Ajusta la clave según la columna correspondiente
+            const runValue = rowData['RUN'];
 
             if (!runValue) {
-                continue; // Saltar la fila si no hay un valor en la columna 'Run'
+                continue; 
             }
 
             const existingFFMM = await ctx.orm.FFMMs.findOne({ where: { run: runValue } });
@@ -60,6 +61,7 @@ router.post("/FFMMs/upload", koaBody({ multipart: true }), async (ctx) => {
                     series: rowData['Serie'],
                     money: rowData['Moneda'],
                     type: rowData['Tipo de Fondo'],
+                    category: rowData['Categoria'],
                     monthly: truncateDecimals(parseFloat(rowData['Mensual'])) + '%',
                     ytd: truncateDecimals(parseFloat(rowData['YTD'])) + '%',
                     yearly: truncateDecimals(parseFloat(rowData['12 meses'])) + '%',
@@ -90,6 +92,7 @@ router.post("/FFMMs/upload", koaBody({ multipart: true }), async (ctx) => {
                         series: rowData['Serie'],
                         money: rowData['Moneda'],
                         type: rowData['Tipo de Fondo'],
+                        category: rowData['Categoria'],
                         monthly: truncateDecimals(parseFloat(rowData['Mensual'])) + '%',
                         ytd: truncateDecimals(parseFloat(rowData['YTD'])) + '%',
                         yearly: truncateDecimals(parseFloat(rowData['12 meses'])) + '%',
@@ -120,6 +123,7 @@ function mapKey(key) {
         'Serie': 'series',
         'Moneda': 'money',
         'Tipo de Fondo': 'type',
+        'Categoria': 'category',
         'Mensual': 'monthly',
         'YTD': 'ytd',
         '12 meses': 'yearly',

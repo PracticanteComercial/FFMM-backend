@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     series: DataTypes.STRING,
     money: DataTypes.STRING,
     type: DataTypes.STRING,
+    category: DataTypes.STRING,
     monthly: DataTypes.STRING,
     ytd: DataTypes.STRING,
     yearly: DataTypes.STRING,

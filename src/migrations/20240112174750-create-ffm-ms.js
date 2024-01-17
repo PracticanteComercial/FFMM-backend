@@ -27,6 +27,9 @@ module.exports = {
       type: {
         type: Sequelize.STRING
       },
+      category: {
+        type: Sequelize.STRING
+      },
       monthly: {
         type: Sequelize.STRING
       },
