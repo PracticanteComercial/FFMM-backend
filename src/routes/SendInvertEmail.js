@@ -1,35 +1,21 @@
-// const Router = require("koa-router");
-// const nodemailer = require("nodemailer");
-
-// const router = new Router();
-
-// router.post("/sendEmailToExecutive", async (ctx) => {
-//     try {
-//         const { investmentAmount } = ctx.request.body;
-
-//         ctx.status = 200;
-//         ctx.body = { message: 'Correo enviado a ejecutivo con éxito!' };
-//     } catch (error) {
-//         ctx.throw(500, error);
-//     }
-// } );
-
-
-// module.exports = router;
-
-
 const Router = require("koa-router");
 const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
 
+
+dotenv.config();
 const router = new Router();
+
+const userEmail = process.env.EMAIL_USER;
+const userPassword = process.env.EMAIL_PASSWORD;
 
 const transporter = nodemailer.createTransport({
     host: 'smtp.office365.com', // Cambia esto por la dirección de tu servidor SMTP
     port: 587, // Puerto del servidor SMTP
     secure: false, // true para SSL, false para otros
     auth: {
-        user: 'practicantecomercial@vectorcapital.cl', // Tu dirección de correo electrónico
-        pass: 'Vector.2023', // Tu contraseña de correo electrónico
+        user: userEmail, 
+        pass: userPassword, 
     },
 });
 
