@@ -28,6 +28,21 @@ router.post("FFMM.create", "/FFMMs", async (ctx) => {
     }
 });
 
+// DELETE a FFMM
+router.delete("FFMM.delete", "/FFMMs/:id", async (ctx) => {
+    try {
+        const FFMM = await ctx.orm.FFMMs.findOne({ where: { id: ctx.params.id } });
+        if (!FFMM) {
+            ctx.throw(404, "FFMM not found");
+        }
+        await FFMM.destroy();
+        ctx.body = { FFMM };
+        ctx.status = 204;
+    } catch (error) {
+        ctx.throw(500, error);
+    }
+});
+
 // POST a lot of FFMMs (upload excel file)
 router.post("/FFMMs/upload", koaBody({ multipart: true }), async (ctx) => {
     try {
@@ -135,6 +150,8 @@ function mapKey(key) {
     };
     return keyMappings[key] || key;
 }
+
+
 
 
 module.exports = router;
