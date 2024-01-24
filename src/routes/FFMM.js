@@ -47,20 +47,19 @@ router.delete("FFMM.delete", "/FFMMs/:id", async (ctx) => {
 router.post("/FFMMs/upload", koaBody({ multipart: true }), async (ctx) => {
     try {
         const file = ctx.request.files.file;
-        console.log(file);
+        // console.log(file);
         const workbook = XLSX.readFile(file.filepath);
         const sheet_name_list = workbook.SheetNames;
         const xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
-        console.log(xlData);
+        // console.log(xlData);
 
         const FFMMsData = [];
-
-        for (let i = 1; i < xlData.length; i++) { 
+        for (let i = 1; i < xlData.length; i++) {
             const rowData = xlData[i];
             const runValue = rowData['RUN'];
 
             if (!runValue) {
-                continue; 
+                continue;
             }
 
             const existingFFMM = await ctx.orm.FFMMs.findOne({ where: { run: runValue } });
@@ -77,9 +76,9 @@ router.post("/FFMMs/upload", koaBody({ multipart: true }), async (ctx) => {
                     money: rowData['Moneda'],
                     type: rowData['Tipo de Fondo'],
                     category: rowData['Categoria'],
-                    monthly: truncateDecimals(parseFloat(rowData['Mensual'])) + '%',
-                    ytd: truncateDecimals(parseFloat(rowData['YTD'])) + '%',
-                    yearly: truncateDecimals(parseFloat(rowData['12 meses'])) + '%',
+                    monthly: truncateDecimals(parseFloat(rowData['Mensual'])),
+                    ytd: truncateDecimals(parseFloat(rowData['YTD'])),
+                    yearly: truncateDecimals(parseFloat(rowData['12 meses'])),
                     rescueability: rowData['tiempo de rescate'],
                     riskLevel: rowData['Nivel de riesgo'],
                     bylawLink: rowData['Link reglamento'],
@@ -108,9 +107,9 @@ router.post("/FFMMs/upload", koaBody({ multipart: true }), async (ctx) => {
                         money: rowData['Moneda'],
                         type: rowData['Tipo de Fondo'],
                         category: rowData['Categoria'],
-                        monthly: truncateDecimals(parseFloat(rowData['Mensual'])) + '%',
-                        ytd: truncateDecimals(parseFloat(rowData['YTD'])) + '%',
-                        yearly: truncateDecimals(parseFloat(rowData['12 meses'])) + '%',
+                        monthly: truncateDecimals(parseFloat(rowData['Mensual'])),
+                        ytd: truncateDecimals(parseFloat(rowData['YTD'])),
+                        yearly: truncateDecimals(parseFloat(rowData['12 meses'])),
                         rescueability: rowData['tiempo de rescate'],
                         riskLevel: rowData['Nivel de riesgo'],
                         bylawLink: rowData['Link reglamento'],

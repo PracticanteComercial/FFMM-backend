@@ -46,10 +46,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       bylawLink: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(255),
       },
       dataSheetLink: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(350),
       },
       invertLink: {
         type: Sequelize.STRING
