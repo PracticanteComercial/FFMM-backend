@@ -21,16 +21,15 @@ const transporter = nodemailer.createTransport({
 
 router.post("/sendEmailToExecutive", async (ctx) => {
     try {
-        const { investmentAmount, fundName, fundRUN } = ctx.request.body;
+        const { clientNumber, investmentAmount, fundName, fundRUN } = ctx.request.body;
 
-        // Configura el contenido del correo electrónico
         const mailOptions = {
             from: 'practicantecomercial@vectorcapital.cl',
             to: 'practicantecomercial@vectorcapital.cl', // Cambia esto por la dirección del ejecutivo
-            subject: '[FFMM] Nuevo monto de inversión de cliente {NOMBRE DEL CLIENTE}',
+            subject: '[FFMM] Nuevo monto de inversión de cliente',
             text: `Estimado/a, \n\n Junto con saludar, se ha recibido una solicitud de inversión de <strong style="font-size: 18px;">${investmentAmount} CLP</strong> por parte de cliente. \n\n Saludos cordiales, \n Vector Capital `,
             html: `Estimado/a, <br/><br/> Junto con saludar, se ha recibido una solicitud de inversión:<br/>
-             Cliente: <strong style="font-size: 18px; color: red;">{NOMBRE DEL CLIENTE}, </strong> <br/>
+             Cliente: <strong style="font-size: 18px; color: red;">${clientNumber}, </strong> <br/>
              Nombre del fondo a invertir:   <strong style="font-size: 18px;"> ${fundName}</strong>, <br/>
              RUN del fondo:     <strong style="font-size: 18px;"> ${fundRUN}</strong>, <br/>
              Monto total:  <strong style="font-size: 18px;"> ${investmentAmount} CLP </strong> <br/>
