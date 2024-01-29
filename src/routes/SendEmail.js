@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-router.post("/sendEmailToExecutive", async (ctx) => {
+router.post("/sendInvertFundEmailToExecutive", async (ctx) => {
     try {
         const { clientName, clientNumber, investmentAmount, fundName, fundRUN } = ctx.request.body;
 
@@ -41,6 +41,43 @@ router.post("/sendEmailToExecutive", async (ctx) => {
         // Envía el correo electrónico
         const info = await transporter.sendMail(mailOptions);
 
+        ctx.status = 200;
+        ctx.body = { message: 'Correo enviado a ejecutivo con éxito!', info };
+    } catch (error) {
+        ctx.throw(500, error);
+    }
+});
+
+
+
+router.post("/sendRescueFundEmailToExecutive", async (ctx) => {
+    try {
+        const { idInstrumento,
+            dscInstrumento,
+            nemotecnico,
+            cantidad,
+            tasaPrecio,
+            porcentajeDeCantidadCuota,
+            cuenta,
+            identificador,
+            nombreCliente, } = ctx.request.body;
+
+        const mailOptions = {
+            from: 'practicantecomercial@vectorcapital.cl',
+            to: 'practicantecomercial@vectorcapital.cl', // Cambia esto por la dirección del ejecutivo
+            subject: '[FFMM] Rescate de fondo de cliente',
+            html: `Estimado/a, <br/><br/> Junto con saludar, se ha recibido una solicitud de rescate:<br/>
+             Cliente: <strong style="font-size: 18px;">${nombreCliente}</strong> , <br/>
+             Número de cliente:  <strong style="font-size: 18px;">${identificador}, </strong> <br/>
+             Cuenta de cliente:  <strong style="font-size: 18px;  color: red;">${cuenta}, </strong> <br/>
+             Nombre del fondo a rescatar:   <strong style="font-size: 18px;"> ${dscInstrumento}</strong>, <br/>
+             Nemotécnico del fondo:     <strong style="font-size: 18px;"> ${nemotecnico}</strong>, <br/>
+             Cantidad de cuota del cliente (Comprobar en el momento): <strong style="font-size: 18px;"> ${cantidad} </strong>, <br/>
+             Porcentaje a rescatar:  <strong style="font-size: 18px;  color: red;"> ${porcentajeDeCantidadCuota}% </strong> <br/>
+
+             <br/> Saludos cordiales,<br/> Vector Capital`,
+        };
+        const info = await transporter.sendMail(mailOptions);
         ctx.status = 200;
         ctx.body = { message: 'Correo enviado a ejecutivo con éxito!', info };
     } catch (error) {

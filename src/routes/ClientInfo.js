@@ -61,7 +61,29 @@ router.get('/getClientName/:numeroCuenta/:clienteTipo', async (ctx) => {
             }
         });
         const responseData = response.data;
-        ctx.body =  responseData[0].idCuentaNavigation.idClienteNavigation.nombre ;
+        ctx.body = responseData[0].idCuentaNavigation.idClienteNavigation.nombre;
+        ctx.status = 200;
+    } catch (error) {
+        ctx.status = 500;
+        ctx.body = { error: 'Error al obtener la información' };
+    }
+});
+
+
+router.get('/getClientFunds/:numeroCuenta/:clienteTipo', async (ctx) => {
+    const fecha = new Date().toISOString();
+    console.log(fecha);
+    const getInfoUrl = `${VOULTECH_URL}/api/publicapi/creasys/Cartera?Fecha=${fecha}&NumCuenta=${ctx.params.numeroCuenta}/${ctx.params.clienteTipo}`;
+    try {
+        const token = ctx.state.token || (await axios.post(`${ctx.origin}/getToken`)).data.token;
+        const response = await axios.get(getInfoUrl, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const responseData = response.data;
+        const filteredData = responseData.filter(item => item.codSubClaseInstrumento === "FMV" || item.codSubClaseInstrumento === "FMF");
+        ctx.body = filteredData;
         ctx.status = 200;
     } catch (error) {
         ctx.status = 500;
