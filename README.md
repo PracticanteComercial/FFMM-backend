@@ -1,6 +1,6 @@
 # FFMM-backend
 
-## Antes de correr el proyecto por primera vez, se debe iniciar la base de datos 
+## Antes de correr el proyecto por primera vez, se debe crear la base de datos 
 ### Si se está usando sistema Linux:
 1. Iniciar el servicio de postgresql: ```sudo service postgresql start```
 2. Entrar a la consola de postgresql: ```sudo -u postgres psql```
@@ -15,7 +15,7 @@
 ```yarn start```
 
 ## Ingreso de datos de fondos mutuos a la base de datos (Paso Opcional)
-A través de Postman subir el archivo de excel que está guardado en ```src/assets/Excel-FFMM.xlsx``` a través del endpoint ```{URL_base}/FFMMs/upload```, donde {URL_base} es el URL de deploy. El código NO lee el archivo de excel por sí solo, tampoco guarda automaticamente a la base de datos.
+A través de Postman subir el archivo de excel que está guardado en ```src/assets/Excel-FFMM.xlsx``` a través del endpoint ```{URL_base}/FFMMs/upload```, donde {URL_base} es el URL de deploy. El código NO lee el archivo de excel por sí solo, por lo que no guarda automaticamente a la base de datos.
 
 ##### Creación del proyecto
 npm init -y

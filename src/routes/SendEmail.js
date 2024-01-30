@@ -25,7 +25,7 @@ router.post("/sendInvertFundEmailToExecutive", async (ctx) => {
 
         const mailOptions = {
             from: 'practicantecomercial@vectorcapital.cl',
-            to: 'practicantecomercial@vectorcapital.cl', // Cambia esto por la dirección del ejecutivo
+            to: 'practicantecomercial@vectorcapital.cl', // Cambia esto por el correo electronico del ejecutivo
             subject: '[FFMM] Nuevo monto de inversión de cliente',
             text: `Estimado/a, \n\n Junto con saludar, se ha recibido una solicitud de inversión de <strong style="font-size: 18px;">${investmentAmount} CLP</strong> por parte de cliente. \n\n Saludos cordiales, \n Vector Capital `,
             html: `Estimado/a, <br/><br/> Junto con saludar, se ha recibido una solicitud de inversión:<br/>
@@ -48,8 +48,6 @@ router.post("/sendInvertFundEmailToExecutive", async (ctx) => {
     }
 });
 
-
-
 router.post("/sendRescueFundEmailToExecutive", async (ctx) => {
     try {
         const { idInstrumento,
@@ -64,7 +62,7 @@ router.post("/sendRescueFundEmailToExecutive", async (ctx) => {
 
         const mailOptions = {
             from: 'practicantecomercial@vectorcapital.cl',
-            to: 'practicantecomercial@vectorcapital.cl', // Cambia esto por la dirección del ejecutivo
+            to: 'practicantecomercial@vectorcapital.cl', // Cambia esto por el correo electronico del ejecutivo
             subject: '[FFMM] Rescate de fondo de cliente',
             html: `Estimado/a, <br/><br/> Junto con saludar, se ha recibido una solicitud de rescate:<br/>
              Cliente: <strong style="font-size: 18px;">${nombreCliente}</strong> , <br/>
