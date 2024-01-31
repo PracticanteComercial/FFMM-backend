@@ -20,17 +20,7 @@ A través de Postman subir el archivo de excel que está guardado en ```src/asse
 ## Docker 
 docker build -t ffmm-backend .
 
-docker run -p 3001:3001 \
-  -e DB_USERNAME='practicantecomercial' \
-  -e DB_PASSWORD='ok' \
-  -e DB_NAME='ffmm_vectorcapital' \
-  -e DB_HOST='host.docker.internal' \
-  -e EMAIL_USER='practicantecomercial@vectorcapital.cl' \
-  -e EMAIL_PASSWORD='Vector.2023' \
-  -e VOULTECH_URL='https://apiwebcbvoultechcertificacion.azurewebsites.net' \
-  -e VOULTECH_USER='portalfondos' \
-  -e VOULTECH_PASSWORD='v4rHYG63f9d639G' \
-  ffmm-backend
+docker run -p 3001:3001 
 
 (
 Crear bdd:
@@ -48,16 +38,3 @@ docker-compose up
 npm init -y
 
 
-docker build -t ffmm-backend -f Dockerfile .
-
-docker run -p 3001:3001 \
-  -e DB_USERNAME='practicantecomercial' \
-  -e DB_PASSWORD='ok' \
-  -e DB_NAME='ffmm_vectorcapital' \
-  -e DB_HOST='host.docker.internal' \
-  -e EMAIL_USER='practicantecomercial@vectorcapital.cl' \
-  -e EMAIL_PASSWORD='Vector.2023' \
-  -e VOULTECH_URL='https://apiwebcbvoultechcertificacion.azurewebsites.net' \
-  -e VOULTECH_USER='portalfondos' \
-  -e VOULTECH_PASSWORD='v4rHYG63f9d639G' \
-  ffmm-backend
