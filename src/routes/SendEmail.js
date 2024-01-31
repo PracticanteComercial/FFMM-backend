@@ -60,18 +60,22 @@ router.post("/sendRescueFundEmailToExecutive", async (ctx) => {
             identificador,
             nombreCliente, } = ctx.request.body;
 
+
+        const cantidadCuotosARescatar = parseInt(porcentajeDeCantidadCuota * cantidad / 100 * 10000) / 10000.0;
+
         const mailOptions = {
             from: 'practicantecomercial@vectorcapital.cl',
             to: 'practicantecomercial@vectorcapital.cl', // Cambia esto por el correo electronico del ejecutivo
             subject: '[FFMM] Rescate de fondo de cliente',
             html: `Estimado/a, <br/><br/> Junto con saludar, se ha recibido una solicitud de rescate:<br/>
-             Cliente: <strong style="font-size: 18px;">${nombreCliente}</strong> , <br/>
-             Número de cliente:  <strong style="font-size: 18px;">${identificador}, </strong> <br/>
-             Cuenta de cliente:  <strong style="font-size: 18px;  color: red;">${cuenta}, </strong> <br/>
+             Cliente: <strong style="font-size: 18px; color: red;">${nombreCliente}</strong> , <br/>
+             RUN del cliente:  <strong style="font-size: 18px;">${identificador}, </strong> <br/>
+             Cuenta del cliente:  <strong style="font-size: 18px;  color: red;">${cuenta}, </strong> <br/>
              Nombre del fondo a rescatar:   <strong style="font-size: 18px;"> ${dscInstrumento}</strong>, <br/>
              Nemotécnico del fondo:     <strong style="font-size: 18px;"> ${nemotecnico}</strong>, <br/>
-             Cantidad de cuota del cliente (Comprobar en el momento): <strong style="font-size: 18px;"> ${cantidad} </strong>, <br/>
-             Porcentaje a rescatar:  <strong style="font-size: 18px;  color: red;"> ${porcentajeDeCantidadCuota}% </strong> <br/>
+             Cantidad de cuota que tiene el cliente (Comprobar en el momento): <strong style="font-size: 18px;"> ${cantidad} </strong>, <br/>
+             Porcentaje a rescatar:  <strong style="font-size: 18px; "> ${porcentajeDeCantidadCuota}% </strong> <br/>
+             Cantidad de cuotas a rescatar:  <strong style="font-size: 18px; color: red;"> ${cantidadCuotosARescatar}  </strong> <br/>
 
              <br/> Saludos cordiales,<br/> Vector Capital`,
         };

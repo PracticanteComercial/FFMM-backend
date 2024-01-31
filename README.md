@@ -17,5 +17,47 @@
 ## Ingreso de datos de fondos mutuos a la base de datos (Paso Opcional)
 A través de Postman subir el archivo de excel que está guardado en ```src/assets/Excel-FFMM.xlsx``` a través del endpoint ```{URL_base}/FFMMs/upload```, donde {URL_base} es el URL de deploy. El código NO lee el archivo de excel por sí solo, por lo que no guarda automaticamente a la base de datos.
 
+## Docker 
+docker build -t ffmm-backend .
+
+docker run -p 3001:3001 \
+  -e DB_USERNAME='practicantecomercial' \
+  -e DB_PASSWORD='ok' \
+  -e DB_NAME='ffmm_vectorcapital' \
+  -e DB_HOST='host.docker.internal' \
+  -e EMAIL_USER='practicantecomercial@vectorcapital.cl' \
+  -e EMAIL_PASSWORD='Vector.2023' \
+  -e VOULTECH_URL='https://apiwebcbvoultechcertificacion.azurewebsites.net' \
+  -e VOULTECH_USER='portalfondos' \
+  -e VOULTECH_PASSWORD='v4rHYG63f9d639G' \
+  ffmm-backend
+
+(
+Crear bdd:
+createdb -h localhost -U practicantecomercial -p 5432 ffmm_vectorcapital_development
+)
+
+docker tag ffmm-backend 10.0.1.8:5000/ffmm-backend:1.0
+docker push 10.0.1.8:5000/ffmm-backend:1.0
+
+## Docker Compose
+Después de levantar las imagenes con docker run, ejecutar este comando:
+docker-compose up
+
 ##### Creación del proyecto
 npm init -y
+
+
+docker build -t ffmm-backend -f Dockerfile .
+
+docker run -p 3001:3001 \
+  -e DB_USERNAME='practicantecomercial' \
+  -e DB_PASSWORD='ok' \
+  -e DB_NAME='ffmm_vectorcapital' \
+  -e DB_HOST='host.docker.internal' \
+  -e EMAIL_USER='practicantecomercial@vectorcapital.cl' \
+  -e EMAIL_PASSWORD='Vector.2023' \
+  -e VOULTECH_URL='https://apiwebcbvoultechcertificacion.azurewebsites.net' \
+  -e VOULTECH_USER='portalfondos' \
+  -e VOULTECH_PASSWORD='v4rHYG63f9d639G' \
+  ffmm-backend
