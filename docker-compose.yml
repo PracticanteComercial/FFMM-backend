@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: ok
 
   backend:
-    image: ffmm-backend
+    image: http://10.0.1.8:5000/ffmm-backend
     ports:
       - "3005:3001"
     depends_on:
@@ -23,14 +23,31 @@ services:
       DB_NAME: ffmm_vectorcapital
       DB_USER: practicantecomercial
       DB_PASSWORD: ok
+      DB_USERNAME: practicantecomercial
+      EMAIL_USER: practicantecomercial@vectorcapital.cl
+      EMAIL_PASSWORD: Vector.2023
+      VOULTECH_URL: https://apiwebcbvoultechcertificacion.azurewebsites.net
+      VOULTECH_USER: portalfondos
+      VOULTECH_PASSWORD: v4rHYG63f9d639G
     volumes:
       - .:/app
     command: ["yarn", "start"]
 
   frontend_cliente:
-    image: ffmm-clients
+    image: http://10.0.1.8:5000/ffmm-clients
     ports:
       - "3004:3002"
+    environment:
+      VITE_BACKEND_URL: http://10.0.1.8:3005
+    volumes:
+      - .:/app
+
+  frontend_admin:
+    image: http://10.0.1.8:5000/ffmm-admin
+    ports:
+      - "3006:3003"
+    environment:
+      VITE_BACKEND_URL: http://10.0.1.8:3005
     volumes:
       - .:/app
 
