@@ -10,7 +10,7 @@ db.sequelize.authenticate().then(() => {
     console.log("Database connected");
     app.listen(PORT, (err) => {
         if (err) console.log("Failed in listening", err);
-        console.log(`Server is running at http://localhost:${PORT}`);
+        console.log(`Server is running at puerto ${PORT}`);
         return app;
     }   );
 }).catch((err)=>{console.log("Error connecting to database", err);}   );

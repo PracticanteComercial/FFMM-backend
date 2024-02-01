@@ -3,10 +3,8 @@ const ExcelJS = require("exceljs");
 const { koaBody } = require("koa-body");
 const XLSX = require('xlsx');
 
-
 const router = new Router();
 
-// GET all FFMMs
 router.get("FFMM.show", "/FFMMs", async (ctx) => {
     try {
         const FFMMs = await ctx.orm.FFMMs.findAll();
@@ -17,7 +15,6 @@ router.get("FFMM.show", "/FFMMs", async (ctx) => {
     }
 });
 
-// POST a new FFMM
 router.post("FFMM.create", "/FFMMs", async (ctx) => {
     try {
         const FFMM = await ctx.orm.FFMMs.create(ctx.request.body);
@@ -28,7 +25,6 @@ router.post("FFMM.create", "/FFMMs", async (ctx) => {
     }
 });
 
-// DELETE a FFMM
 router.delete("FFMM.delete", "/FFMMs/:id", async (ctx) => {
     try {
         const FFMM = await ctx.orm.FFMMs.findOne({ where: { id: ctx.params.id } });
@@ -43,25 +39,20 @@ router.delete("FFMM.delete", "/FFMMs/:id", async (ctx) => {
     }
 });
 
-// POST a lot of FFMMs (upload excel file)
 router.post("/FFMMs/upload", koaBody({ multipart: true }), async (ctx) => {
     try {
         const file = ctx.request.files.file;
-        // console.log(file);
         const workbook = XLSX.readFile(file.filepath);
         const sheet_name_list = workbook.SheetNames;
         const xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
-        // console.log(xlData);
-
         const FFMMsData = [];
-        for (let i = 1; i < xlData.length; i++) {
+
+        for (let i = 0; i < xlData.length; i++) {
             const rowData = xlData[i];
             const runValue = rowData['RUN'];
-
             if (!runValue) {
                 continue;
             }
-
             const existingFFMM = await ctx.orm.FFMMs.findOne({ where: { run: runValue } });
 
             if (!existingFFMM) {
@@ -149,6 +140,5 @@ function mapKey(key) {
     };
     return keyMappings[key] || key;
 }
-
 
 module.exports = router;

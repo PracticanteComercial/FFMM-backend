@@ -2,8 +2,8 @@ const Router = require("koa-router");
 const axios = require("axios");
 const router = new Router();
 const dotenv = require("dotenv");
-dotenv.config();
 
+dotenv.config();
 const VOULTECH_USER = process.env.VOULTECH_USER;
 const VOULTECH_PASSWORD = process.env.VOULTECH_PASSWORD;
 const VOULTECH_URL = process.env.VOULTECH_URL;
@@ -26,7 +26,6 @@ router.post('/getToken', async (ctx) => {
 router.get('/getBalance/:numeroCuenta/:clienteTipo', async (ctx) => {
     const fecha = new Date().toISOString();
     const getInfoUrl = `${VOULTECH_URL}/api/publicapi/creasys/Cajas/ConSaldoOnline?NumCuenta=${ctx.params.numeroCuenta}/${ctx.params.clienteTipo}&Fecha=${fecha}`;
-
     try {
         const token = ctx.state.token || (await axios.post(`${ctx.origin}/getToken`)).data.token;
         const response = await axios.get(getInfoUrl, {
@@ -69,7 +68,6 @@ router.get('/getClientName/:numeroCuenta/:clienteTipo', async (ctx) => {
     }
 });
 
-
 router.get('/getClientFunds/:numeroCuenta/:clienteTipo', async (ctx) => {
     const fecha = new Date().toISOString();
     console.log(fecha);
@@ -90,6 +88,5 @@ router.get('/getClientFunds/:numeroCuenta/:clienteTipo', async (ctx) => {
         ctx.body = { error: 'Error al obtener la información' };
     }
 });
-
 
 module.exports = router;

@@ -8,10 +8,11 @@ const router = new Router();
 
 const userEmail = process.env.EMAIL_USER;
 const userPassword = process.env.EMAIL_PASSWORD;
+const EMAIL_RECEIVER = process.env.EMAIL_RECEIVER;
 
 const transporter = nodemailer.createTransport({
-    host: 'smtp.office365.com', // Cambia esto por la dirección de tu servidor SMTP
-    port: 587, // Puerto del servidor SMTP
+    host: 'smtp.office365.com',
+    port: 587,
     secure: false, // true para SSL, false para otros
     auth: {
         user: userEmail,
@@ -23,9 +24,11 @@ router.post("/sendInvertFundEmailToExecutive", async (ctx) => {
     try {
         const { clientName, clientNumber, investmentAmount, fundName, fundRUN } = ctx.request.body;
 
+        console.log('mandar correo: ', userEmail, EMAIL_RECEIVER);
+
         const mailOptions = {
-            from: 'practicantecomercial@vectorcapital.cl',
-            to: 'practicantecomercial@vectorcapital.cl', // Cambia esto por el correo electronico del ejecutivo
+            from: userEmail,
+            to: EMAIL_RECEIVER,
             subject: '[FFMM] Nuevo monto de inversión de cliente',
             text: `Estimado/a, \n\n Junto con saludar, se ha recibido una solicitud de inversión de <strong style="font-size: 18px;">${investmentAmount} CLP</strong> por parte de cliente. \n\n Saludos cordiales, \n Vector Capital `,
             html: `Estimado/a, <br/><br/> Junto con saludar, se ha recibido una solicitud de inversión:<br/>
@@ -33,7 +36,7 @@ router.post("/sendInvertFundEmailToExecutive", async (ctx) => {
              Número de cliente:  <strong style="font-size: 18px; color: red;">${clientNumber}, </strong> <br/>
              Nombre del fondo a invertir:   <strong style="font-size: 18px;"> ${fundName}</strong>, <br/>
              RUN del fondo:     <strong style="font-size: 18px;"> ${fundRUN}</strong>, <br/>
-             Monto total:  <strong style="font-size: 18px;"> ${investmentAmount} CLP </strong> <br/>
+             Monto total:  <strong style="font-size: 18px; color: red;"> ${investmentAmount} CLP </strong> <br/>
              
              <br/> Saludos cordiales,<br/> Vector Capital`,
         };
@@ -59,13 +62,10 @@ router.post("/sendRescueFundEmailToExecutive", async (ctx) => {
             cuenta,
             identificador,
             nombreCliente, } = ctx.request.body;
-
-
         const cantidadCuotosARescatar = parseInt(porcentajeDeCantidadCuota * cantidad / 100 * 10000) / 10000.0;
-
         const mailOptions = {
-            from: 'practicantecomercial@vectorcapital.cl',
-            to: 'practicantecomercial@vectorcapital.cl', // Cambia esto por el correo electronico del ejecutivo
+            from: userEmail,
+            to: EMAIL_RECEIVER,
             subject: '[FFMM] Rescate de fondo de cliente',
             html: `Estimado/a, <br/><br/> Junto con saludar, se ha recibido una solicitud de rescate:<br/>
              Cliente: <strong style="font-size: 18px; color: red;">${nombreCliente}</strong> , <br/>
