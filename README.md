@@ -27,8 +27,8 @@ Crear bdd:
 createdb -h localhost -U practicantecomercial -p 5432 ffmm_vectorcapital_development
 )
 
-docker tag ffmm-backend 10.0.1.8:5000/ffmm-backend:1.0
-docker push 10.0.1.8:5000/ffmm-backend:1.0
+docker tag ffmm-backend 10.0.1.8:5000/ffmm-backend:1.1
+docker push 10.0.1.8:5000/ffmm-backend:1.1
 
 ## Docker Compose
 Después de levantar las imagenes con docker run, ejecutar este comando:

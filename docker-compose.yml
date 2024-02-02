@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: ok
 
   backend:
-    image: http://10.0.1.8:5000/ffmm-backend
+    image: 10.0.1.8:5000/ffmm-backend:1.1
     ports:
       - "3005:3001"
     depends_on:
@@ -34,20 +34,20 @@ services:
     command: ["yarn", "start"]
 
   frontend_cliente:
-    image: http://10.0.1.8:5000/ffmm-clients
+    image: 10.0.1.8:5000/ffmm-clients:1.1
     ports:
       - "3004:3002"
     environment:
-      VITE_BACKEND_URL: http://10.0.1.8:3005
+      VITE_BACKEND_URL: 10.0.1.8:3005
     volumes:
       - .:/app
 
   frontend_admin:
-    image: http://10.0.1.8:5000/ffmm-admin
+    image: 10.0.1.8:5000/ffmm-admin:1.0
     ports:
       - "3006:3003"
     environment:
-      VITE_BACKEND_URL: http://10.0.1.8:3005
+      VITE_BACKEND_URL: 10.0.1.8:3005
     volumes:
       - .:/app
 
