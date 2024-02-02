@@ -1,6 +1,6 @@
 FROM node:18.0.0
 
-WORKDIR /app
+WORKDIR /FFMM-backend
 
 COPY package.json yarn.lock* ./
 

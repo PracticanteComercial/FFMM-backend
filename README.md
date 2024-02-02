@@ -15,18 +15,11 @@
 ```yarn start```
 
 ## Ingreso de datos de fondos mutuos a la base de datos (Paso Opcional)
-A través de Postman subir el archivo de excel que está guardado en ```src/assets/Excel-FFMM.xlsx``` a través del endpoint ```{URL_base}/FFMMs/upload```, donde {URL_base} es el URL de deploy. El código NO lee el archivo de excel por sí solo, por lo que no guarda automaticamente a la base de datos.
+A través de página de administrador.
 
 ## Docker 
 docker build -t ffmm-backend .
-
-docker run -p 3001:3001 
-
-(
-Crear bdd:
-createdb -h localhost -U practicantecomercial -p 5432 ffmm_vectorcapital_development
-)
-
+docker run -p 3001:3001 (agregando variables de entorno)
 docker tag ffmm-backend 10.0.1.8:5000/ffmm-backend:1.1
 docker push 10.0.1.8:5000/ffmm-backend:1.1
 
